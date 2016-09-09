@@ -1,3 +1,9 @@
 <h1>Places</h1>
 
+<%= form_tag places_path, method: :get do %>
+    <%= text_field_tag :what, params[:what] %>
+    <%= text_field_tag :where, params[:where] %>
+    <%= submit_tag 'Search' %>
+<% end %>
+
 <%= render partial: 'place', collection: @places %>
