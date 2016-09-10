@@ -9,8 +9,27 @@
   </head>
 
   <body>
-    <h1>Looking4</h1>
-    <hr />
-    <%= yield %>
+    <nav class="navbar navbar-default">
+      <div class="container"><div class="navbar-header"><a class="navbar-brand">Looking4</a></div></div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <%= form_tag places_path, method: :get do %>
+              <div class="form-group">
+                <%= text_field_tag :what, params[:what], class: 'form-control', placeholder: 'What' %>
+              </div>
+              <div class="form-group">
+                <%= text_field_tag :where, params[:where], class: 'form-control', placeholder: 'Where' %>
+              </div>
+
+              <%= submit_tag 'Search', class: 'btn btn-default' %>
+          <% end %>
+        </div>
+        <div class="col-md-9">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
