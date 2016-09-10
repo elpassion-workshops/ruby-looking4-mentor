@@ -26,9 +26,11 @@
               <%= submit_tag 'Search', class: 'btn btn-default' %>
           <% end %>
 
+          <hr />
+          
           <ul>
             <% @popular_queries.each do |query| %>
-              <li><%= query_title(query) %></li>
+              <li><%= link_to query_title(query), places_path(query_id: query) %></li>
             <% end %>
           </ul>
         </div>

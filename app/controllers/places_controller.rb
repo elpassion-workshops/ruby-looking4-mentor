@@ -2,7 +2,13 @@ class PlacesController < ApplicationController
   API_KEY = 'AIzaSyAP1vwxyCM--MERNqLnncKfDUsx9YfqvTQ'
 
   def index
-    @query = params[:query] ? Query.create(query_params) : Query.new
+    @query = if params[:query_id]
+               Query.find(params[:query_id])
+             elsif params[:query]
+               Query.create(query_params)
+             else
+               Query.new
+             end
 
     if @query.address.present?
       @coords = Geocoder.coordinates(@query.address)
