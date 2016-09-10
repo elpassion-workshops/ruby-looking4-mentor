@@ -25,6 +25,12 @@
 
               <%= submit_tag 'Search', class: 'btn btn-default' %>
           <% end %>
+
+          <ul>
+            <% @popular_queries.each do |query| %>
+              <li><%= query_title(query) %></li>
+            <% end %>
+          </ul>
         </div>
         <div class="col-md-9">
           <%= yield %>
