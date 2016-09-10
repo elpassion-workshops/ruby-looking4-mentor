@@ -11,13 +11,10 @@ class PlacesController < ApplicationController
              end
 
     if @query.valid?
-      @coords = Geocoder.coordinates(@query.address)
-      @client = GooglePlaces::Client.new(API_KEY)
-      @places = @client.spots(@coords.first, @coords.last, radius: 200, keyword: @query.keyword)
+      @query.searched!
 
-      @query.increment(:searches_count)
-      @query.searched_at = Time.current
-      @query.save
+      @client = GooglePlaces::Client.new(API_KEY)
+      @places = @client.spots(@query.latitude, @query.longitude, radius: 200, keyword: @query.keyword)
     end
   end
 
