@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_popular_queries
-    @popular_queries = Query.limit(5)
+    @popular_queries = Query.order(searches_count: :desc, searched_at: :desc).limit(5)
   end
 
 end

@@ -5,15 +5,19 @@ class PlacesController < ApplicationController
     @query = if params[:query_id]
                Query.find(params[:query_id])
              elsif params[:query]
-               Query.create(query_params)
+               Query.find_or_create_by(query_params)
              else
                Query.new
              end
 
-    if @query.address.present?
+    if @query.valid?
       @coords = Geocoder.coordinates(@query.address)
       @client = GooglePlaces::Client.new(API_KEY)
       @places = @client.spots(@coords.first, @coords.last, radius: 200, keyword: @query.keyword)
+
+      @query.increment(:searches_count)
+      @query.searched_at = Time.current
+      @query.save
     end
   end
 

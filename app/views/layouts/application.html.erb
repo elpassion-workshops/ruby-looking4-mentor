@@ -27,7 +27,7 @@
           <% end %>
 
           <hr />
-          
+
           <ul>
             <% @popular_queries.each do |query| %>
               <li><%= link_to query_title(query), places_path(query_id: query) %></li>
